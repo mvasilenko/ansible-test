@@ -1,0 +1,17 @@
+---
+- name: Verify
+  hosts: all
+
+  tasks:
+    - name: verify if packages are installed
+      ansible.builtin.assert:
+        that:
+          - "unzip" in ansible_facts.packages
+          - "tar" in ansible_facts.packages
+          - "wget" in ansible_facts.packages
+          - "curl" in ansible_facts.packages
+          - "git" in ansible_facts.packages
+      register: result
+      failed_when: result is failed
+      changed_when: result is changed
+      ignore_errors: true
