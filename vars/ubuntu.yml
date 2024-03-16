@@ -1,0 +1,3 @@
+---
+# Ubuntu specific variables for our custom repo
+repo_url: "https://ubuntu.metaphysics.ai/repo"
