@@ -5,15 +5,13 @@ name: CI
     branches:
       - main
       - 'feature**'
+      - 'hotfix**'
   schedule:
     - cron: "30 8 * * 0"
 
 defaults:
   run:
     working-directory: 'mvasilenko.ansible-test'
-
-jobs:
-    working-directory: 'ansible-test'
 
 jobs:
 
@@ -25,14 +23,6 @@ jobs:
       matrix:
         scenario:
           - default  # ubuntu
-
-    steps:
-      - name: Check out the codebase.
-        uses: actions/checkout@v4
-      matrix:
-        include:
-          - distro: centos-8
-            playbook: converge.yml
 
     steps:
       - name: Check out the codebase.
