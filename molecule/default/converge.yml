@@ -1,10 +1,7 @@
 ---
 - name: Converge
   hosts: all
-
-- import_tasks: ../../main.yml
-#  gather_facts: false
-#  tasks:
-#    - name: Replace this task with one that validates your content
-#      ansible.builtin.debug:
-#        msg: "This is the effective test"
+  tasks:
+    - name: "test role"
+      ansible.builtin.include_role:
+        name: "mvasilenko.ansible_test"

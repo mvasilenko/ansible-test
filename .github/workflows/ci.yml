@@ -3,41 +3,32 @@ name: CI
 'on':
   push:
     branches:
-      - master
+      - main
+      - 'feature**'
   schedule:
     - cron: "30 8 * * 0"
 
 defaults:
   run:
+    working-directory: 'mvasilenko.ansible-test'
+
+jobs:
     working-directory: 'ansible-test'
 
 jobs:
-
-  lint:
-    name: Lint
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check out the codebase.
-        uses: actions/checkout@v3
-        with:
-          path: 'ansible-test'
-
-      - name: Set up Python 3.
-        uses: actions/setup-python@v3
-        with:
-          python-version: '3.x'
-
-      - name: Install test dependencies.
-        run: pip3 install yamllint
-
-      - name: Lint code.
-        run: |
-          yamllint .
 
   molecule:
     name: Molecule
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
+      matrix:
+        scenario:
+          - default  # ubuntu
+
+    steps:
+      - name: Check out the codebase.
+        uses: actions/checkout@v4
       matrix:
         include:
           - distro: centos-8
@@ -50,17 +41,21 @@ jobs:
           path: 'mvasilenko.ansible-test'
 
       - name: Set up Python 3.
-        uses: actions/setup-python@v3
+        uses: actions/setup-python@v5
         with:
-          python-version: '3.10'
+          python-version: '3.x'
 
       - name: Install test dependencies.
-        run: pip3 install ansible molecule molecule-plugins[docker] docker
+        run: pip3 install -r requirements.txt
+
+      - name: Show versions.
+        run: |
+          molecule --version
+          yamllint --version
+          ansible-lint --version
 
       - name: Run Molecule tests.
-        run: molecule test
+        run: molecule test --scenario-name=${{ matrix.scenario }}
         env:
           PY_COLORS: '1'
           ANSIBLE_FORCE_COLOR: '1'
-          MOLECULE_DISTRO: ${{ matrix.distro }}
-          MOLECULE_PLAYBOOK: ${{ matrix.playbook }}
