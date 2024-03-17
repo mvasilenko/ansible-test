@@ -1,0 +1,50 @@
+---
+name: CI
+'on':
+  push:
+    branches:
+      - main
+      - 'feature**'
+  schedule:
+    - cron: "30 8 * * 0"
+
+defaults:
+  run:
+    working-directory: 'mvasilenko.ansible-test'
+
+jobs:
+
+  molecule:
+    name: Molecule
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        scenario:
+          - default  # ubuntu
+
+    steps:
+      - name: Check out the codebase.
+        uses: actions/checkout@v4
+        with:
+          path: 'mvasilenko.ansible-test'
+
+      - name: Set up Python 3.
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Install test dependencies.
+        run: pip3 install -r requirements.txt
+
+      - name: Show versions.
+        run: |
+          molecule --version
+          yamllint --version
+          ansible-lint --version
+
+      - name: Run Molecule tests.
+        run: molecule test --scenario-name=${{ matrix.scenario }}
+        env:
+          PY_COLORS: '1'
+          ANSIBLE_FORCE_COLOR: '1'

@@ -1,0 +1,20 @@
+---
+- name: "Install required packages on CentOS "
+  ansible.builtin.yum:
+    name: "{{ item }}"
+  with_items:
+    - unzip
+    - tar
+    - wget
+    - curl
+    - git
+
+- name: Check for updates (yum)
+  ansible.builtin.yum:
+    list: updates
+    update_cache: true
+  register: yum_output
+
+- name: Debug
+  debug: var=yum_output
+  msg: "{{ yum_output.results | map(attribute='name') | list }}"

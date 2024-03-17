@@ -1,0 +1,5 @@
+---
+galaxy_info:
+  namespace: mvasilenko
+  role_name: ansible_test
+  description: Test role - install required packages
