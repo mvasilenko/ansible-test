@@ -16,5 +16,5 @@
   register: yum_output
 
 - name: Debug
-  debug: var=yum_output
-  msg: "{{ yum_output.results | map(attribute='name') | list }}"
+  ansible.builtin.debug:
+    msg: "{{ yum_output.results | map(attribute='name') | list }}"

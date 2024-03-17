@@ -4,11 +4,10 @@
   vars:
     params:
       files:
-        - '{{ ansible_distribution | lower }}.yml'
-        - '{{ ansible_os_family | lower }}.yml'
+        - "{{ ansible_distribution | lower }}.yml"
         - default.yml
       paths:
-        - 'vars'
+        - "{{ role_path }}/vars"
 
 - name: Debug - print OS family and distribution
   ansible.builtin.debug:
