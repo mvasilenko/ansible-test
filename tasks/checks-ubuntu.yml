@@ -26,5 +26,5 @@
   register: apt_output
 
 - name: debug
-  debug: var=apt_output
-  msg: "{{ apt_output.results | map(attribute='name') | list }}"
+  ansible.builtin.debug:
+    msg: "{{ apt_output.results | map(attribute='name') | list }}"
