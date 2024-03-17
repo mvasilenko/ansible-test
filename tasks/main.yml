@@ -4,8 +4,8 @@
   vars:
     params:
       files:
-        - '{{ ansible_distribution }}.yml'
-        - '{{ ansible_os_family }}.yml'
+        - '{{ ansible_distribution | lower }}.yml'
+        - '{{ ansible_os_family | lower }}.yml'
         - default.yml
       paths:
         - 'vars'
@@ -16,8 +16,8 @@
 
 - name: Include Centos specific checks
   ansible.builtin.include_tasks: checks-centos.yml
-  when: ansible_os_family == 'centos'
+  when: ansible_distribution == 'Centos'
 
 - name: Include Ubuntu specific checks
   ansible.builtin.include_tasks: checks-ubuntu.yml
-  when: ansible_os_family == 'ubuntu'
+  when: ansible_distribution == 'Ubuntu'
