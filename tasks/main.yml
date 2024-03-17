@@ -10,6 +10,9 @@
       paths:
         - 'vars'
 
+- name: Debug
+  msg: "{{ ansible_os_family }} {{ ansible_distribution }}"
+
 - name: Include Centos specific checks
   ansible.builtin.include_tasks: checks-centos.yml
   when: ansible_os_family == 'centos'
