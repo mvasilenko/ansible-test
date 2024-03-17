@@ -10,8 +10,9 @@
       paths:
         - 'vars'
 
-- name: Debug
-  msg: "{{ ansible_os_family }} {{ ansible_distribution }}"
+- name: Debug - print OS family and distribution
+  ansible.builtin.debug:
+    msg: "{{ ansible_os_family }} {{ ansible_distribution }}"
 
 - name: Include Centos specific checks
   ansible.builtin.include_tasks: checks-centos.yml
