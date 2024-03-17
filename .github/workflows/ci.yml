@@ -13,6 +13,9 @@ defaults:
     working-directory: 'mvasilenko.ansible-test'
 
 jobs:
+    working-directory: 'ansible-test'
+
+jobs:
 
   molecule:
     name: Molecule
@@ -26,6 +29,14 @@ jobs:
     steps:
       - name: Check out the codebase.
         uses: actions/checkout@v4
+      matrix:
+        include:
+          - distro: centos-8
+            playbook: converge.yml
+
+    steps:
+      - name: Check out the codebase.
+        uses: actions/checkout@v3
         with:
           path: 'mvasilenko.ansible-test'
 
