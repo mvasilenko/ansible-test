@@ -1,18 +1,11 @@
 ---
-- name: "Install required packages on Ubuntu"
-  ansible.builtin.package:
-    name: "{{ item }}"
-  with_items:
-    - unzip
-    - tar
-    - wget
-    - curl
-    - git
-
-- name: "Update the repository cache (Ubuntu)"
+- name: "Install specific packages on Ubuntu"
   ansible.builtin.apt:
-    update_cache: false
-    cache_valid_time: 3600
+    pkg:
+      - apache
+      - ca-certificates
+      - python3-pip
+      - software-properties-common
 
 - name: Update apt-get repo and cache
   ansible.builtin.apt:
