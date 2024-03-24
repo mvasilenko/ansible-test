@@ -5,8 +5,8 @@
 
 - name: Include Centos specific checks
   ansible.builtin.include_tasks: checks-centos.yml
-  when: ansible_distribution == 'Centos'
+  when: ansible_distribution.lower() in ['centos', 'rocky']
 
 - name: Include Ubuntu specific checks
   ansible.builtin.include_tasks: checks-ubuntu.yml
-  when: ansible_distribution == 'Ubuntu'
+  when: ansible_distribution.lower() == 'ubuntu'
