@@ -24,8 +24,8 @@ jobs:
         scenario:
           - default  # ubuntu
         image:
-          - 'centos:7'
-          - 'centos:8'
+          - 'centos:centos7'
+          - 'centos:centos8'
           - 'rockylinux:8'
           - 'rockylinux:9'
           - 'ubuntu:20.04'
