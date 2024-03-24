@@ -8,8 +8,9 @@
   vars:
     params:
       files:
-        - '{{ansible_distribution}}.yaml'
-        - '{{ansible_os_family}}.yaml'
+        - "{{ ansible_distribution|lower() }}-{{ ansible_distribution_major_version|lower() }}.yml"
+        - "{{ ansible_distribution|lower() }}.yml"
+        - "{{ ansible_os_family|lower() }}.yml"
         - default.yaml
       paths:
         - 'vars'
