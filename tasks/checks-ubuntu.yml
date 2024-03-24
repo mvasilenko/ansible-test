@@ -1,23 +1,4 @@
 ---
-- name: Include distribution vars
-  ansible.builtin.include_vars:
-    file: "{{ ansible_distribution | lower }}/main.yml"
-
-- name: "Install required packages on Ubuntu"
-  ansible.builtin.package:
-    name: "{{ item }}"
-  with_items:
-    - unzip
-    - tar
-    - wget
-    - curl
-    - git
-
-- name: "Update the repository cache (Ubuntu)"
-  ansible.builtin.apt:
-    update_cache: false
-    cache_valid_time: 3600
-
 - name: Update apt-get repo and cache
   ansible.builtin.apt:
     update_cache: true
@@ -26,5 +7,15 @@
   register: apt_output
 
 - name: debug
-  debug: var=apt_output
-  msg: "{{ apt_output.results | map(attribute='name') | list }}"
+  ansible.builtin.debug:
+    msg: "{{ apt_output }}"
+#.results | map(attribute='name') | list }}"
+
+- name: "Install specific packages on Ubuntu"
+  ansible.builtin.apt:
+    pkg:
+      - apache2
+      - ca-certificates
+      - python3-pip
+      - software-properties-common
+    update_cache: yes
