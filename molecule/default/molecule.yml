@@ -13,6 +13,8 @@ lint: |
 platforms:
   - name: instance-ubuntu
     image: ubuntu:lunar
+  - name: instance-centos7
+    image: centos:7
 
 provisioner:
   name: ansible
