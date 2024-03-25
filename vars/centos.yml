@@ -1,8 +1,7 @@
 ---
 # CentOS specific variables
 packages:
-    - unzip
-    - tar
-    - wget
-    - curl
-    - git
+  - unzip
+  - tar
+  - wget
+  - git
