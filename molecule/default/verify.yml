@@ -11,7 +11,8 @@
       ansible.builtin.assert:
         that:
           - ansible_facts.packages[item] | length == 1
+      with_items: 
+        - "{{ packages }}"
       register: result
       failed_when: result is failed
       changed_when: result is changed
-      with: "{{ packages }}"
