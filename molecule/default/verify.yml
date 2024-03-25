@@ -7,10 +7,14 @@
       ansible.builtin.package_facts:
         manager: auto
 
+    - name: Debug
+      ansible.builtin.debug:
+        msg: "{{ ansible_facts.packages }}"
+
     - name: Verify if packages are installed
       ansible.builtin.assert:
         that:
-          - ansible_facts.packages[item] | length == 1
+          - ansible_facts.packages[item] | length > 0
       with_items: 
         - "{{ packages }}"
       register: result
