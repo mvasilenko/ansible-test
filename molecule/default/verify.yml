@@ -13,10 +13,11 @@
 
     - name: Verify if packages are installed
       ansible.builtin.assert:
-        that:
-          - "{{ item }}" in ansible_facts.packages
+        that: line_item in ansible_facts.packages.keys()
       with_items:
         - "{{ packages }}"
+      loop_control:
+        loop_var: line_item
       register: result
       failed_when: result is failed
       changed_when: result is changed
