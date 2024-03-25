@@ -12,10 +12,10 @@
         msg: "{{ ansible_facts.packages['curl'] }}"
 
     - name: Verify if packages are installed
-      ansible.builtin.assert:
-        that: ansible_facts.packages[pkg] is defined
-        fail_msg: "FAIL: Package '{{ pkg }}' is not installed!"
-        success_msg: "PASS: Package '{{ pkg }}' is installed."
-      loop: "{{ packages }}"
-      loop_control:
-        loop_var: pkg
+      ansible.builtin.package:
+        name: "{{ item }}"
+        state: present
+      check_mode: true
+      register: install
+      failed_when: (install is changed) or (install is failed)
+      with_items: "{{ custom_packages }}"
