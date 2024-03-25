@@ -25,7 +25,7 @@ jobs:
           - default  # ubuntu
         image:
           - 'geerlingguy/docker-centos7-ansible:latest'
-          - 'centos:centos8'
+          - 'geerlingguy/docker-centos8-ansible:latest'
           - 'rockylinux:8'
           - 'rockylinux:9'
           - 'ubuntu:20.04'
