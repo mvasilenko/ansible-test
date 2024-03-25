@@ -1,7 +1,7 @@
 ---
 # RockyLinux 9 specific variables
 packages:
-    - unzip
-    - tar
-    - wget
-    - git
+  - unzip
+  - tar
+  - wget
+  - git
