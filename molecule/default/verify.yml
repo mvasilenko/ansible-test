@@ -9,12 +9,12 @@
 
     - name: Debug
       ansible.builtin.debug:
-        msg: "{{ ansible_facts.packages }}"
+        msg: "{{ ansible_facts.packages['curl'] }}"
 
     - name: Verify if packages are installed
       ansible.builtin.assert:
         that:
-          - ansible_facts.packages[item] | length > 0
+          - ansible_facts.packages[item] is defined
       with_items: 
         - "{{ packages }}"
       register: result
