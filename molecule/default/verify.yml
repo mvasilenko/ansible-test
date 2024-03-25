@@ -10,7 +10,7 @@
     - name: Verify if packages are installed
       ansible.builtin.assert:
         that:
-          - "{{ item }}" in ansible_facts.packages
+          - ansible_facts.packages[item] | length == 1
       register: result
       failed_when: result is failed
       changed_when: result is changed
