@@ -5,3 +5,4 @@ packages:
   - tar
   - wget
   - git
+  - curl
