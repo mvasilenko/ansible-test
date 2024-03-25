@@ -14,8 +14,8 @@
     - name: Verify if packages are installed
       ansible.builtin.assert:
         that:
-          - ansible_facts.packages[item] is defined
-      with_items: 
+          - "{{ item }}" in ansible_facts.packages
+      with_items:
         - "{{ packages }}"
       register: result
       failed_when: result is failed
