@@ -22,7 +22,7 @@ jobs:
       fail-fast: false
       matrix:
         scenario:
-          - default  # ubuntu
+          - default
         image:
           - 'geerlingguy/docker-centos7-ansible:latest'
           - 'geerlingguy/docker-centos8-ansible:latest'
