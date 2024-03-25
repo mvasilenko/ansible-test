@@ -3,10 +3,22 @@
   ansible.builtin.debug:
     msg: "{{ ansible_os_family }} {{ ansible_distribution }}"
 
+- name: Load a variable file based on the OS type, or a default if not found. Using free-form to specify the file.
+  ansible.builtin.include_vars: "{{ lookup('ansible.builtin.first_found', params) }}"
+  vars:
+    params:
+      files:
+        - "{{ ansible_distribution|lower() }}-{{ ansible_distribution_major_version|lower() }}.yml"
+        - "{{ ansible_distribution|lower() }}.yml"
+        - "{{ ansible_os_family|lower() }}.yml"
+        - default.yaml
+      paths:
+        - 'vars'
+
 - name: Include Centos specific checks
   ansible.builtin.include_tasks: checks-centos.yml
-  when: ansible_distribution == 'Centos'
+  when: ansible_distribution.lower() in ['centos', 'rocky']
 
 - name: Include Ubuntu specific checks
   ansible.builtin.include_tasks: checks-ubuntu.yml
-  when: ansible_distribution == 'Ubuntu'
+  when: ansible_distribution.lower() == 'ubuntu'

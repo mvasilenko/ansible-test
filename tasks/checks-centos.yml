@@ -1,13 +1,8 @@
 ---
-- name: "Install required packages on CentOS "
+- name: "Install required packages on CentOS"
   ansible.builtin.yum:
     name: "{{ item }}"
-  with_items:
-    - unzip
-    - tar
-    - wget
-    - curl
-    - git
+  with_items: "{{ packages }}"
 
 - name: Check for updates (yum)
   ansible.builtin.yum:

@@ -11,8 +11,8 @@ lint: |
   ansible-lint
 
 platforms:
-  - name: instance-ubuntu
-    image: ubuntu:lunar
+  - name: default
+    image: ${IMAGE:-"centos:7"}
 
 provisioner:
   name: ansible
