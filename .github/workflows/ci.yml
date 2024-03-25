@@ -24,7 +24,7 @@ jobs:
         scenario:
           - default  # ubuntu
         image:
-          - 'centos:centos7'
+          - 'geerlingguy/docker-centos7-ansible:latest'
           - 'centos:centos8'
           - 'rockylinux:8'
           - 'rockylinux:9'
