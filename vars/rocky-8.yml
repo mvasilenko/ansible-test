@@ -1,0 +1,8 @@
+---
+# RockyLinux 8 specific variables
+packages:
+    - unzip
+    - tar
+    - wget
+    - curl
+    - git

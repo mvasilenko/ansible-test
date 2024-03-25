@@ -9,13 +9,9 @@
 - name: debug
   ansible.builtin.debug:
     msg: "{{ apt_output }}"
-#.results | map(attribute='name') | list }}"
 
-- name: "Install specific packages on Ubuntu"
+- name: Install specific packages on Ubuntu
   ansible.builtin.apt:
-    pkg:
-      - apache2
-      - ca-certificates
-      - python3-pip
-      - software-properties-common
+    name: "{{ packages }}"
     update_cache: yes
+    cache_valid_time: 3600
