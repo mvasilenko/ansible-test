@@ -13,10 +13,10 @@
 
     - name: Verify if packages are installed
       ansible.builtin.assert:
-        that: "ansible_facts.packages.get( line_item )"
-        fail_msg: "FAIL: Package '{{ line_item }}' is not installed!"
-        success_msg: "PASS: Package '{{ line_item }}' is installed."
+        that: ansible_facts.packages[pkg] is defined
+        fail_msg: "FAIL: Package '{{ pkg }}' is not installed!"
+        success_msg: "PASS: Package '{{ pkg }}' is installed."
       with_items:
         - "{{ packages }}"
       loop_control:
-        loop_var: line_item
+        loop_var: pkg
