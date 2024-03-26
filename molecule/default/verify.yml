@@ -11,6 +11,18 @@
       ansible.builtin.debug:
         msg: "{{ ansible_facts.packages['curl'] }}"
 
+    - name: Load a variable file based on the OS type, or a default if not found. Using free-form to specify the file.
+      ansible.builtin.include_vars: "{{ lookup('ansible.builtin.first_found', params) }}"
+      vars:
+        params:
+          files:
+            - "{{ ansible_distribution|lower() }}-{{ ansible_distribution_major_version|lower() }}.yml"
+            - "{{ ansible_distribution|lower() }}.yml"
+            - "{{ ansible_os_family|lower() }}.yml"
+            - default.yaml
+          paths:
+            - '../../vars'
+
     - name: Verify if packages are installed
       ansible.builtin.package:
         name: "{{ item }}"
