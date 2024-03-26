@@ -12,6 +12,6 @@
 
 - name: Install specific packages on Ubuntu
   ansible.builtin.apt:
-    name: "{{ packages }}"
+    name: "{{ custom_packages }}"
     update_cache: yes
     cache_valid_time: 3600

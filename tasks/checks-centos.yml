@@ -2,7 +2,7 @@
 - name: "Install required packages on CentOS"
   ansible.builtin.yum:
     name: "{{ item }}"
-  with_items: "{{ packages }}"
+  with_items: "{{ custom_packages }}"
 
 - name: Check for updates (yum)
   ansible.builtin.yum:
