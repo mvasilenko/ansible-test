@@ -23,8 +23,17 @@
       ansible.builtin.package:
         name: "{{ item }}"
         state: present
-      fail_msg: "Package '{{ item }}' is not installed"
       check_mode: true
       register: install
       failed_when: (install is changed) or (install is failed)
       with_items: "{{ custom_packages }}"
+
+    - name: Verify if packages are installed with assert
+      ansible.builtin.assert:
+        that:
+          - packages[item.name] is defined
+        success_msg: "Package '{{ item.name }}' is installed"
+        fail_msg: "Package '{{ item.name }}' is not installed!"
+      loop: "{{ custom_packages }}"
+      loop_control:
+        loop_var: item
